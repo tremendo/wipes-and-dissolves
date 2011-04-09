@@ -1,0 +1,6 @@
+JavaScript Wipes & Dissolves
+
+Using the Canvas element for transition visual effects from one image to another, such as Opening Iris, roll up (or down), venetian blinds, random, checkerboard, etc.
+
+Based on my GFA Basic Wipes & Dissolves published in STart magazine in March 1991. Good to know that the same can finally be achieved using Web technologies, instead of directly manipulating memory blocks as was done then.
+
