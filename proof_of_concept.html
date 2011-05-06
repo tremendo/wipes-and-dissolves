@@ -11,13 +11,13 @@
 /*	position: absolute;
 	top: 0;
 	left: 0; */
-	width: 600px;
-	height: 400px;
+	width: 640px;
+	height: 480px;
 	border: 1px #000 solid;
 }
 #photo { display:none; }
 /*#ph_drawing { background-image: url(drawing.jpg); }*/
-#drawing_src { display:none; width: 600px; height: 400px; }
+#drawing_src { display:none; width: 640px; height: 480px; }
 </style>
 
 <script type="text/javascript">
@@ -37,7 +37,7 @@ function init() {
 	dr_ctx.drawImage(drawing_src, 0, 0);
 }
 function init_bitblit() {
-	pts_source = [ photo, 600, 400, 30, 0, 4 ];
+	pts_source = [ photo, 640, 480, 30, 0, 4 ];
 	pts_dest   = [ ph_drawing, pts_source[1], pts_source[2], pts_source[3], 0, pts_source[5]];
 	if( dunnit ) {
 		var src = drawing_src.getAttribute('src');
@@ -330,7 +330,7 @@ function wipe_venetianblind() {
 -->
 
 <!--<canvas id="photo" width="600" height="400"></canvas>-->
-<canvas id="ph_drawing" width="600" height="400"></canvas>
+<canvas id="ph_drawing" width="640" height="480"></canvas>
 
 <div style="text-align:right;position:absolute; top:0; right:1em;">
 <p><a href="#" onclick="wipe_iris(); return false;">Iris</a></p>
