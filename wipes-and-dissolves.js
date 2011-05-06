@@ -135,7 +135,7 @@ W_D.fx_checkerboard = function() {
 W_D.fx_rollup = function() {
 	this.reset();
 	var roll_h = Math.floor(W_D.img1.height / 5); // << 20% height 
-	var scr_copy = new Image; scr_copy.src = drawing_src.src;
+	var scr_copy = new Image; scr_copy.src = W_D.img2.src;
 	var w = this.img1.width;
 	var h = this.img1.height;
 	var loop = 1;
