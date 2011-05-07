@@ -1,7 +1,8 @@
 /*
-Canvas Wipes & Dissolves
-Carlos R. Tirado - 2011
+	Canvas Wipes & Dissolves
+	Carlos R. Tirado - 2011
 */
+
 // setup global W_D (for Wipes and Dissolves) object and initialize
 var W_D = {
 	canvas: null,
@@ -17,10 +18,14 @@ W_D.setup = function( params ) {
 	this.img1 = params.img1;
 	this.img2 = params.img2;
 	this.context = this.canvas.getContext('2d');
-	this.context.drawImage( this.img2, 0, 0 ); // initialized
+	this.context.drawImage( this.img1, 0, 0 ); // initialized
 }
 W_D.reset = function() {
 	if( this.timer ) { clearInterval( this.timer ); }
+	// temp. flip img1 & img2
+	var tmp = this.img1.src;
+	this.img1.src = this.img2.src;
+	this.img2.src = tmp;
 }
 
 /* Effects: */
@@ -44,20 +49,22 @@ W_D.fx_iris = function() {
 
 W_D.fx_random = function() {
 	this.reset();
-// this of course should be configurable:
-	// divvy up canvas in a 20x20 grid (400 squares)
+	var grid_size = 20; // default 20 x 20 grid
+	if( 0 < arguments.length && 0 < arguments[0] ) {
+		grid_size = arguments[0];
+	}
 	var grid = new Array();
-	for( var i = 0; i < 400; i++ ) { grid[ i ] = i; }
-	var loop = 399;
+	for( var i = 0; i < (grid_size * grid_size); i++ ) { grid[ i ] = i; }
+	var loop = (grid_size * grid_size) - 1;
 	this.timer = setInterval( function() {
 		if( 0 <= loop ) {
 			r = Math.floor( Math.random() * loop );
 			loop2 = grid[ r ];
 			grid[ r ] = grid[ loop ];
-			x = ( loop2 % 20 ) * Math.floor( W_D.img1.width / 20 );
-			y = Math.floor( loop2 / 20 ) * Math.floor( W_D.img1.height / 20 );
-			w = Math.floor( W_D.img1.width / 20 );
-			h = Math.floor( W_D.img1.height / 20 );
+			x = ( loop2 % grid_size ) * Math.floor( W_D.img1.width / grid_size );
+			y = Math.floor( loop2 / grid_size ) * Math.floor( W_D.img1.height / grid_size );
+			w = Math.floor( W_D.img1.width / grid_size );
+			h = Math.floor( W_D.img1.height / grid_size );
 			W_D.context.drawImage( W_D.img1, x, y, w, h, x, y, w, h );
 			loop -= 1;
 		} else {
@@ -69,24 +76,33 @@ W_D.fx_random = function() {
 W_D.fx_cross = function() {
 	this.reset();
 	var loop = 0;
+	var w = W_D.img1.width  / 40;
+	var h = W_D.img1.height / 40;
 	this.timer = setInterval( function() {
-		if( loop <= 20 ) {
-			w = loop * W_D.img1.width / 40 + 1;
-			h = loop * W_D.img1.height / 40;
-			x = 0; y = 0;
-			W_D.context.drawImage( W_D.img1, x, y, w, h, x, y, w, h );
-			y = W_D.img1.height - h;
-			W_D.context.drawImage( W_D.img1, x, y, w, h, x, y, w, h );
-			x = W_D.img1.width - w - 1;
-			W_D.context.drawImage( W_D.img1, x, y, w, h, x, y, w, h );
+		if( loop < 20 ) {
+			/* individually each Quadrant could be a from-corner transition */
+			x = loop * w;
+			y = loop * h;
+			// NW Quadrant
+			W_D.context.drawImage( W_D.img1, 0, y, w * (loop + 1), h, 0, y, w * (loop + 1), h );
+			W_D.context.drawImage( W_D.img1, x, 0, w, h * (loop + 1), x, 0, w, h * (loop + 1));
+			// SW Quadrant
+			y = W_D.img1.height - h * (loop + 1);
+			W_D.context.drawImage( W_D.img1, w * loop, y, w, h * (loop + 1), w * loop, y, w, h * (loop + 1));
+			W_D.context.drawImage( W_D.img1, 0, y, w * (loop + 1), h, 0, y, w * (loop + 1), h );
+			// SE Quadrant /* vary width and y, x img.width - width */
+			x = W_D.img1.width - w * (loop + 1);
+			W_D.context.drawImage( W_D.img1, x, y, w, h * (loop + 1), x, y, w, h * (loop + 1));
+			W_D.context.drawImage( W_D.img1, x, y, w * (loop + 1), h, x, y, w * (loop + 1), h );
+			// NE Quadrant
 			y = 0;
-			W_D.context.drawImage( W_D.img1, x, y, w, h, x, y, w, h );
+			W_D.context.drawImage( W_D.img1, x, y, w, h * (loop + 1), x, y, w, h * (loop + 1));
+			W_D.context.drawImage( W_D.img1, x, h * loop, w * (loop + 1), h, x, h * loop, w * (loop + 1), h);
 			loop += 1;
 		} else {
-			W_D.context.drawImage( W_D.img1, 0, 0 );
 			clearInterval( W_D.timer );
 		}
-	}, 40);
+	}, 33);
 }
 
 W_D.fx_assemble = function() {
