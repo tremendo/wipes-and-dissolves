@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<title>Canvas Wipes &amp; Dissolves</title>
+<script src="../wipes-and-dissolves.js"></script>
+<style>
+body { color: #fff; background-color: #999; }
+h1 {
+	margin: 20px 40px; padding: 0;
+	font-family: 'Pacifico', arial, serif;
+	font-weight: normal;
+}
+a { color: #eee; text-decoration: none; }
+a:hover { color: #fff; background-color: #555; }
+#ph_drawing, #photo {
+	width: 800px;
+	height: 533px;
+	border: 20px #000 solid;
+	margin: 0 20px;
+}
+#photo { display:none; }
+#drawing_src { display:none; width: 800px; height: 533px; }
+#menu { position:absolute; top:80px; left:900px; }
+#menu a{ display: block; padding: 2px; }
+</style>
+</head>
+
+<body onload="init()">
+
+<h1>Wipes &amp; Dissolves</h1>
+<img id="drawing_src" src="http://www.hiddenangels.com/wp-content/themes/carousel/functions/timthumb.php?src=http://www.hiddenangels.com/wp-content/uploads/ocmx-gallery/large/mel-red.jpg&w=940&h=&q=100&f=">
+<img id="photo" src="http://www.hiddenangels.com/wp-content/themes/carousel/functions/timthumb.php?src=http://www.hiddenangels.com/wp-content/uploads/ocmx-gallery/large/mel-bw.jpg&w=940&h=&q=100&f=">
+
+<canvas id="ph_drawing" width="800" height="533"></canvas>
+
+<div id="menu">
+<p><a href="#" onclick="W_D.fx.iris(); return false;">Iris</a></p>
+<p><a href="#" onclick="W_D.fx.random(); return false;">Random</a></p>
+<p><a href="#" onclick="W_D.fx.cross(); return false;">Cross</a></p>
+<p><a href="#" onclick="W_D.fx.assemble(); return false;">Assemble</a></p>
+<p><a href="#" onclick="W_D.fx.checkerboard(); return false;">Checkerboard</a></p>
+<hr />
+<p><a href="#" onclick="W_D.fx.cover(); return false;">Cover</a></p>
+<p><a href="#" onclick="W_D.fx.uncover(); return false;">Uncover</a></p>
+<p><a href="#" onclick="W_D.fx.venetianblind(); return false;">Venetian blind</a></p>
+<p><a href="#" onclick="W_D.fx.rollup(); return false;">Roll up</a></p>
+<p><a href="#" onclick="W_D.fx.rolldown(); return false;">Roll down</a></p>
+<hr />
+<p><a href="#" onclick="W_D.slideshow(10); return false;">Slideshow</a></p>
+</div>
+
+<p style="margin-left:20px;">Images by <a href="http://hiddenangels.com/">HiddenAngels.com</a></p>
+
+<script>
+function init() {
+	W_D.setup({
+		canvas: document.getElementById('ph_drawing'),
+		img1: document.getElementById('photo'),
+		img2: document.getElementById('drawing_src')
+	});
+}
+</script>
+
+</body>
+</html>
