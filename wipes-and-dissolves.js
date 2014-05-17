@@ -63,9 +63,9 @@ var W_D = (function() {
 			timer = setInterval( function() {
 				if( loop < 200 ) {
 					x =  img1.width  / 2 - loop * img1.width / 400;
-					y =  img1.height / 2 - loop * img1.height / 400;
-					w = (img1.width  / 2 - x ) * 2;
-					h = (img1.height / 2 - y ) * 2;
+					y =  Math.floor(img1.height / 2 - loop * img1.height / 400);
+					w = ((img1.width  / 2 - x ) * 2) || 1;
+					h = Math.floor((img1.height / 2 - y ) * 2);
 					context.drawImage( img1, x, y, w, h, x, y, w, h );
 					loop += 1;
 				} else {
@@ -97,7 +97,7 @@ var W_D = (function() {
 				} else {
 					finish_fx();
 				}
-			});
+			}, 1);
 		},
 
 		cross : function() {
@@ -238,7 +238,7 @@ var W_D = (function() {
 
 		cover : function() {
 			reset();
-			var loop = 0;
+			var loop = 1;
 			timer = setInterval( function() {
 				if( loop < img1.height ) {
 					context.drawImage( img1, 0, img1.height-loop, img1.width, loop,
